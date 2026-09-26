@@ -42,3 +42,21 @@ async function getElevationGain(coordinates) {
   }
   return totalGain;
 }
+
+function calculateFuelCost(distanceKm, durationMin, elevationGainM, vehicle) {
+  const baseFuelCost = (distanceKm / vehicle.mileageKmPerLitre) * vehicle.fuelPricePerLitre;
+  const elevationPenalty = (elevationGainM / 100) * 0.05 * baseFuelCost;
+  const totalCost = baseFuelCost + elevationPenalty;
+
+  return {
+    baseFuelCost: Math.round(baseFuelCost),
+    elevationPenalty: Math.round(elevationPenalty),
+    totalCost: Math.round(totalCost)
+  };
+}
+
+const vehiclePresets = {
+  hatchbackPetrol: { mileageKmPerLitre: 18, fuelPricePerLitre: 103 },
+  sedanDiesel: { mileageKmPerLitre: 20, fuelPricePerLitre: 92 },
+  suvPetrol: { mileageKmPerLitre: 12, fuelPricePerLitre: 103 }
+};

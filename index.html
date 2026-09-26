@@ -17,6 +17,9 @@
 
       const gain = await getElevationGain(route.coordinates);
       console.log("Elevation gain (m):", gain);
+
+      const cost = calculateFuelCost(route.distanceKm, route.durationMin, gain, vehiclePresets.hatchbackPetrol);
+      console.log("Cost breakdown:", cost);
     }
     test().catch(err => console.error("Error:", err));
   </script>
