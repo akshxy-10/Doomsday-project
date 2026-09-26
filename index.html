@@ -3,5 +3,22 @@
 <head><title>Fuel Cost Predictor</title></head>
 <body>
   <h1>Fuel Cost Predictor</h1>
+  <script src="api/route.js"></script>
+  <script>
+    async function test() {
+      const origin = await geocode("SRM Institute of Science and Technology, Kattankulathur");
+      console.log("Origin:", origin);
+
+      const dest = await geocode("Chennai Central Railway Station");
+      console.log("Destination:", dest);
+
+      const route = await getRoute(origin.lat, origin.lng, dest.lat, dest.lng);
+      console.log("Route:", route);
+
+      const gain = await getElevationGain(route.coordinates);
+      console.log("Elevation gain (m):", gain);
+    }
+    test().catch(err => console.error("Error:", err));
+  </script>
 </body>
 </html>
